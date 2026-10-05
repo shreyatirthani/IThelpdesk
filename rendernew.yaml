@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: it-helpdesk-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn it_helpdesk_app_new:app --host 0.0.0.0 --port 10000
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: OPENAI_API_KEY
+        sync: false                   # Set this in Render dashboard
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: LANGSMITH_API_KEY
+        sync: false                   # Set this in Render dashboard (optional)
+      - key: LANGSMITH_PROJECT
+        value: it-helpdesk-agent
